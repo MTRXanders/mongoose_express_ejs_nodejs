@@ -1,0 +1,46 @@
+$blackColor: #333;
+$whiteColor: #fff;
+$greyColor: #e8e8e8;
+$primaryColor: #a3c8d6;
+$secondaryColor: #f8ba3d;
+$freeSpace: 15px;
+$headerHeight: 49px;
+$footerHeight: 49px;
+$borderRadius: 2px;
+$successColor: #87bf0a;
+$errorColor: #e82c0c;
+
+@import 'reset';
+@import 'grid';
+@import 'typography';
+@import '_forms';
+@import 'components/links';
+@import 'components/comments';
+
+
+
+// reset
+ul,li,div,p,h1,h2,h3,h4,h5,h6{
+  margin: 0;
+  padding: 0;
+}
+html {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  color: $blackColor;
+  background-color: lighten($greyColor, 7);
+  padding-top: $headerHeight + $freeSpace;
+}
+
+@import 'header';
+@import 'main';
+@import 'footer';
+@import 'components/post';
+@import 'components/auth';
