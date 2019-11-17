@@ -1,6 +1,5 @@
 node_modules
 .DS_Store
 .env
-public/stylesheets/styles.css.map
-public/javascripts/scripts.js.map
 uploads
+.vs
