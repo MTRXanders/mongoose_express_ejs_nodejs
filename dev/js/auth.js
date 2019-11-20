@@ -27,9 +27,12 @@ $('.register-button').on('click',function(e){
     removeSuccess();
     var data ={
         login:$('#register-login').val(),
+        name:$('#register-name').val(),
         password:$('#register-password').val(),
         passwordConfirm: $('#register-password-confirm').val()
     };
+    console.log(data)
+
     $.ajax({
         type:'POST',
         data: JSON.stringify(data),
@@ -77,6 +80,7 @@ $('.login-button').on('click',function(e){
         }
     });
 });
+
 function removeSuccess(){
     if($('.register').has('p.success')){
         $('p.success').remove();

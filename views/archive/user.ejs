@@ -2,12 +2,15 @@
 <div class="main">
   <div class="container">
     <div class="content">
-      <% for(var i = 0; i< posts.length; i++){ %>
+      <% for(var i = 0; i < posts.length; i++){ %>
        <div class="post">
       <div class="top">
         <h2>
           <a href="/posts/<%=posts[i].url %>"><%= posts[i].title %>
           </a>
+          <% if(posts[i].owner.login === user.login){ %>
+            <a style="color:black; text-decoration: none;" href="/post/edit/<%=posts[i].id %>">🖉</a>
+          <% } %>
         </h2>
       </div>
       <div class="body">
@@ -17,9 +20,9 @@
       <div class="bottom">
         <div class="author">
           Автор:
-          <a href="/users/<%= posts[i].owner.login %>"><%= posts[i].owner.login %></a>
+          <a href="/users/<%= posts[i].owner.name %>"><%= posts[i].owner.name %></a>
         </div>
-        <a href="/">Комментарии</a>
+        <a href="/posts/<%= posts[i].url%>#<%=posts[i].id %>">Комментарии:<%=  posts[i].commentCount %></a>
       </div>
        </div>
       <% } %>
@@ -28,12 +31,12 @@
             <% console.log(current)%>
             <%if(current > 1){ %>
             <li>
-              <a href="/users/<%= posts[0].owner.login %>/1">
+              <a href="/users/<%= posts[0].owner.name %>/1">
               <svg class="icon-svg svg-first"  viewBox="0 0 28 24"><path d="M8.452 5.455l2.93 3.192c.89.969 1.335 1.361 2.225 1.909h-13.608v2.773h13.634c-.838.5-1.492 1.102-2.252 1.913l-2.93 3.192 2.276 1.964 7.588-8.452-7.588-8.452-2.276 1.961zM24.297 0h3.087v23.891h-3.087v-23.891z"></path></svg>
               </a>
             </li>
             <li>
-                <a class="left-pagination" href="/users/<%= posts[0].owner.login %>/<%= Number(current)-1 %>">
+                <a class="left-pagination" href="/users/<%= posts[0].owner.name %>/<%= Number(current)-1 %>">
                   <svg width="6px" height="40px" viewBox="0 20 40 40" >
                       <polyline fill="none" stroke="rgba(108, 121, 127,0.6)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" points="
                     45.63,65.8 0.375,38.087 55.63,0.375 "/>
@@ -43,18 +46,18 @@
           <% } %>
           <% for(let i=0; i< pages; ++i){ %>
             <li>
-              <a href="/users/<%= posts[0].owner.login %>/<%= i+1 %>"><%= i+1 %></a>
+              <a href="/users/<%= posts[0].owner.name %>/<%= i+1 %>"><%= i+1 %></a>
             </li>
           <% } %>  
           <% if (pages != 0) { %>
               <li>
-                <a href="/users/<%= posts[0].owner.login %>/<%= (Number(current)+1)<=pages?(Number(current)+1):pages %>"> <svg class="arr-right" width="6px" height="40px" viewBox="0 20 40 40" >
+                <a href="/users/<%= posts[0].owner.name %>/<%= (Number(current)+1)<=pages?(Number(current)+1):pages %>"> <svg class="arr-right" width="6px" height="40px" viewBox="0 20 40 40" >
                     <polyline fill="none" stroke="rgba(108, 121, 127,0.6)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" points="
                   45.63,65.8 0.375,38.087 55.63,0.375 "/>
                  </svg> </a>
               </li>
               <li>
-                <a href="/users/<%= posts[0].owner.login %>/<%= pages %>">
+                <a href="/users/<%= posts[0].owner.name %>/<%= pages %>">
                <span>
                   <svg class="icon-svg"  viewBox="0 0 28 24"><path d="M8.452 5.455l2.93 3.192c.89.969 1.335 1.361 2.225 1.909h-13.608v2.773h13.634c-.838.5-1.492 1.102-2.252 1.913l-2.93 3.192 2.276 1.964 7.588-8.452-7.588-8.452-2.276 1.961zM24.297 0h3.087v23.891h-3.087v-23.891z"></path></svg>
                </span> 

@@ -8,18 +8,16 @@ const showdown = require('showdown');
 
 
  async function posts(req, res){
-    const userId = req.session.userId;
-    const userLogin = req.session.userLogin;
+    const {userId, userLogin, userName} = req.session;
     const perPage = +config.PER_PAGE;
     const page = req.params.page || 1;
-
     try{
     let posts = await  models.Post.find({
         status: 'published'
     })
-    .skip(perPage*page-perPage)
+    .skip((perPage*page)-perPage)
     .limit(perPage)
-    .populate('owner','login')// populate Post's property 'owner' by the reference object("User") in model
+    .populate('owner',['login','name'])// populate Post's property 'owner' by the reference object("User") in model
     .populate('uploads')
     .sort({createdAt:-1})
     
@@ -37,17 +35,19 @@ const showdown = require('showdown');
             body: converter.makeHtml(body)
         })
 
-    })
-    console.log(posts)
+    }) 
+
+   // console.log(posts)
     const count = await models.Post.countDocuments()
-    
+    console.log(req.session)
     res.render('archive/index',{
     posts,
     current:page,
     pages:Math.ceil(count/perPage),
     user:{
         id:userId,
-        login: userLogin
+        login: userLogin,
+        name: userName
     }
     })
     } catch(error){
@@ -65,8 +65,7 @@ router.get('/archive/:page', (req, res)=> posts(req,res));
 // ref to the post page
 router.get('/posts/:post', async (req,res,next)=>{
     const url = req.params.post.trim().replace(/ +(?= )/g, '');
-    const userId = req.session.userId;
-    const userLogin = req.session.userLogin;
+    const {userId, userLogin, userName} = req.session;
     if(!url){
         const err = new Error('Not Found');
         err.status = 404;
@@ -76,12 +75,14 @@ router.get('/posts/:post', async (req,res,next)=>{
             const post = await models.Post.findOne({
                 url,
                 status: 'published'
-            }).populate('uploads');
+            }).populate({path:'uploads'})
+              .populate({path:'owner', select:['name','login']});
             if(!post){
                 const err = new Error('Not Found');
                 err.status = 404;
                 next(err);
             }else{
+                console.log(post)
                 const comments = await models.Comment.find({
                   post: post.id,
                   parent:{$exists:false}  
@@ -103,7 +104,8 @@ router.get('/posts/:post', async (req,res,next)=>{
                     moment,
                     user:{
                         id: userId,
-                        login: userLogin
+                        login: userLogin,
+                        name: userName
                     }
                 })
             }
@@ -114,33 +116,31 @@ router.get('/posts/:post', async (req,res,next)=>{
 })
 
 //users posts page
-router.get('/users/:login/:page*?', (req,res)=>{// *? - Can exist or not
-    const userId = req.session.userId;
-    const userLogin = req.session.userLogin;
+router.get('/users/:name/:page*?', (req,res)=>{// *? - Can exist or not
+    const {userId, userLogin , userName} = req.session;
     const perPage = +config.PER_PAGE;
     const page = req.params.page || 1;
-    const login = req.params.login;
-
-    models.User.findOne({login})
+    const name = req.params.name;
+   
+    models.User.findOne({name:name})
     .then(user=>{
         models.Post.find({
             owner: user.id
         })
         .skip(perPage*page-perPage)
         .limit(perPage)
-        .populate('owner','login')// populate Post's property 'owner' by the reference object("User") in model & get only LOGIN prop
+        .populate('owner',['login','name'])// populate Post's property 'owner' by the reference object("User") in model & get only LOGIN prop
         .populate('uploads')
         .sort({createdAt:-1})
         .then(posts =>{
             models.Post.countDocuments({owner:user.id}).then(count=>{
-               
                 const converter = new showdown.Converter()
                 posts =posts.map(post=>{
                     let body = post.body;
                     if(post.uploads.length){
-                     post.uploads.forEach(upload =>{
-                         body = body.replace(`image${upload.id}`, 
-                         `/${config.DESTINATION}${upload.path}`)
+                        post.uploads.forEach(upload =>{
+                        body = body.replace(`image${upload.id}`, 
+                        `/${config.DESTINATION}${upload.path}`)
                      })
                     }
                     return Object.assign(post, {
@@ -153,7 +153,8 @@ router.get('/users/:login/:page*?', (req,res)=>{// *? - Can exist or not
                     pages:Math.ceil(count/perPage),
                     user:{
                         id:userId,
-                        login: userLogin
+                        login: userLogin,
+                        name: userName
                     }
                 })
             }).catch(()=>{

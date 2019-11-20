@@ -34,8 +34,8 @@ const tr = require('transliter');
 
  //GET for edit
  router.get('/edit/:id', async (req,res, next)=>{
-    const userId = req.session.userId;
-    const userLogin = req.session.userLogin;
+    const {userId, userLogin, userName} = req.session;
+
     const id = req.params.id.trim().replace(/ +(?= )/g, '');//clear from spaces
     if(!userId || !userLogin){
         res.redirect('/');
@@ -51,7 +51,8 @@ const tr = require('transliter');
                 post,
                 user:{
                     id: userId,
-                    login: userLogin
+                    login: userLogin,
+                    name: userName
                 }
             });
          }catch(error){
@@ -64,7 +65,6 @@ const tr = require('transliter');
 router.post('/add', async (req,res)=>{
     const userId = req.session.userId;
     const userLogin = req.session.userLogin;
-
     // console.log(req.body)
     if(!userId || !userLogin){
         res.redirect('/');

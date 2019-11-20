@@ -16,7 +16,7 @@ mongoose.connection
 .once('open', () => {
     const info = mongoose.connections[0];
     console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
-  // require('./mocks')();
+  //  require('./mocks')();
 });
 mongoose.connect(config.MONGO_URL,{
     useNewUrlParser:true,
@@ -47,7 +47,6 @@ app.use(bodyParser.json());// translate response from client to server
 app.use(staticAsset(path.join(__dirname,'public')));//sets hash to url for static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads',express.static(path.join(__dirname, config.DESTINATION)));
-
 app.use('/javascripts',express.static(path.join(__dirname,'node_modules','jquery', 'dist')));
 
 
@@ -57,6 +56,7 @@ app.use('/api/auth', routes.auth);
 app.use('/post', routes.post);
 app.use('/comment', routes.comment);
 app.use('/upload',routes.upload);
+app.use('/user',routes.user);
 
 // app.get('/', (req, res) =>{
 //    const id = req.session.userId;

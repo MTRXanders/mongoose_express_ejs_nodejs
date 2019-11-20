@@ -2,7 +2,7 @@
 <div class="main">
   <div class="container">
     <div class="content">
-      <% for(var i = 0; i< posts.length; i++){ %>
+      <% for(var i =0; i <  posts.length; i++){ %>
        <div class="post">
       <div class="top">
         <h2>
@@ -19,7 +19,7 @@
       <div class="bottom">
         <div class="author">
           Автор:
-          <a href="/users/<%= posts[i].owner.login %>"><%= posts[i].owner.login %></a>
+          <a href="/users/<%= posts[i].owner.name %>"><%= posts[i].owner.name %></a>
         </div>
         <a href="/posts/<%= posts[i].url%>#<%=posts[i].id %>">Комментарии:<%=  posts[i].commentCount %></a>
       </div>
@@ -27,7 +27,6 @@
       <% } %>
       <% if (posts) { %>  
         <ul class="pagination">
-            <% console.log(current)%>
             <%if(current > 1){ %>
             <li>
               <a href="/archive/1">

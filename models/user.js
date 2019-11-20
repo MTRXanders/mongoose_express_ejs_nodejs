@@ -8,6 +8,17 @@ const schema = new Schema(
         required:true,
         unique:true
     },
+    loginVerified:{
+        type:Boolean,
+        default: false
+    },
+    verificationString:{
+        type: String,
+    },
+    name:{
+        type:String,
+        unigue:true
+    },
     password:{
         type:String,
         required:true,
