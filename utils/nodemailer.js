@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const config = require('../config');
-const ejs = require('ejs');
+const ejs = require('ejs'); 
 const fs = require('fs');
 
 

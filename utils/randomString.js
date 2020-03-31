@@ -1,5 +1,5 @@
 
-
+ 
 module.exports = (length, chars)=>{
     let mask = '';
     if (chars.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz';
