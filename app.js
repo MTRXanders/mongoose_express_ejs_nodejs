@@ -51,7 +51,10 @@ app.use('/javascripts',express.static(path.join(__dirname,'node_modules','jquery
 
 
 //routes
-app.use('/', routes.archive);
+ app.use('/', routes.archive);
+// app.get('/', (req,res)=>{
+//     res.sendFile(path.join(__dirname +'/public/app/index.html'));
+// })
 app.use('/api/auth', routes.auth);
 app.use('/post', routes.post);
 app.use('/comment', routes.comment);

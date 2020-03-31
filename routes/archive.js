@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path')
 const router = express.Router();
 const models = require('../models')
 const config = require('../config');
@@ -36,10 +37,7 @@ const showdown = require('showdown');
         })
 
     }) 
-
-   // console.log(posts)
     const count = await models.Post.countDocuments()
-    console.log(req.session)
     res.render('archive/index',{
     posts,
     current:page,
@@ -59,6 +57,7 @@ const showdown = require('showdown');
 // routes 
 //index
 router.get('/', (req,res)=>posts(req,res));
+
 // history posts
 router.get('/archive/:page', (req, res)=> posts(req,res));
 
@@ -82,7 +81,6 @@ router.get('/posts/:post', async (req,res,next)=>{
                 err.status = 404;
                 next(err);
             }else{
-                console.log(post)
                 const comments = await models.Comment.find({
                   post: post.id,
                   parent:{$exists:false}  

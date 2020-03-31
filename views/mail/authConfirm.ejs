@@ -30,34 +30,36 @@
     <body>
        <table>
           <tbody>
-              <tr>
-                  <td>
-                     <p>Добро пожаловать в <a href="https://uinflow.com">Uinflow.com</a>!</p>
-                     <p>Поздравляем вас с успешной регистрацией на сайте компании!</p>
-                     <td class="logPass">
-                        <p>
-                            <img src="https://ci3.googleusercontent.com/proxy/-g8rNtGJifxY3MlOT8_44xvNfk06W6PF1oYhbzACE2JoP_9q0XIXtkNFFMW22PghOcHib0R2RKCpaTHjn6KcUzQUSaEax9Yv_AlGtF_Sad6K=s0-d-e1-ft#https://img.reg.ru/mail/new_user/b-mail-new-user__customer.png">
-                            <b>Ваш логин:</b>
-                            <a href="mailto:<%= login %>"><%= login %></a>
-                        </p>
-                        <p>
-                            <img src="https://ci6.googleusercontent.com/proxy/_sI-FWL4GQcylb005G2zWsTGn1_QrxFlo5I6xPRIiC-Z-4KpQ_T4jpZKD25CQkS8GZejXnPztuHTJMO9rsVUyRYSdQbaOQsLX9rndLU=s0-d-e1-ft#https://img.reg.ru/mail/new_user/b-mail-new-user__lock.png">
-                            <b>Ваш пароль:</b><%= pass %>
-                        </p>
-                     </td>
-                     <td>
-                        <td>
-                            <img src="https://ci3.googleusercontent.com/proxy/VDQGBY-vLmWLdEiiGSl4Kfd5H4CI3rYAVLqNbPvWHrzAwBnfVK0KXN7NzYbRYNxbXoUm6rDrfPoPNlavwHoapmNJ=s0-d-e1-ft#https://i.reg.ru/i/mail/img/mail-icon-alert.png">
-                        </td>
-                        <td>
-                            <td>Для&nbsp;активации аккаунта, пожалуйста, <a href="http://localhost:3000/user/confirm/<%=confirm %>">подтвердите регистрацию </a>на&nbsp;сайте Uinflow.com. </td>
-                        </td>
-                    </td>
+            <tr>
+                <td>
+                    <p>Добро пожаловать в <a href="https://uinflow.com">Uinflow.com</a>!</p>
+                    <p>Поздравляем вас с успешной регистрацией на сайте компании!</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="logPass">
+                    <p>
+                        <b>Ваш логин:</b>
+                        <a href="mailto:<%= login %>"><%= login %></a>
+                    </p>
+                    <p>
+                        <img src="">
+                        <b>Ваш пароль:</b><%= pass %>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <td>
-                        <a href="http://localhost:3000/user/confirm/<%=confirm %>">Подтвердить регистрацию</a>
+                        <td>Для&nbsp;активации аккаунта, пожалуйста, <a href="http://localhost:3000/user/confirm/<%=confirm %>">подтвердите регистрацию </a>на&nbsp;сайте Uinflow.com. </td>
                     </td>
-                  </td>
-              </tr>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://localhost:3000/user/confirm/<%=confirm %>">Подтвердить регистрацию</a>
+                </td>
+            </tr>
           </tbody>
        </table>
     </body>

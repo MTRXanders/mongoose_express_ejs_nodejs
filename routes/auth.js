@@ -29,13 +29,7 @@ router.post('/register', [check('login').isEmail()], (req, res) => {
       error: 'Все поля должны быть заполнены',
       fields: arr
     });
-    //   } else if (!/^[a-zA-Z0-9]+$/.test(ob.login)) {
-    //     res.json({
-    //       ok: false,
-    //       error: 'Только латинские буквы и цыфры',
-    //       fields: ['login']
-    //     });
-  } else if (ob.login.length < 5 || ob.login.length > 50) {
+   } else if (ob.login.length < 5 || ob.login.length > 50) {
     res.json({
       ok: false,
       error: 'Длина логина должна быть от 3 до 16 символов!',
@@ -70,7 +64,6 @@ router.post('/register', [check('login').isEmail()], (req, res) => {
           verificationString: randomStr(16, '#aA')
         })
           .then(user => {
-            // console.log(user);
             req.session.userId = user.id;
             req.session.userLogin = user.login;
             req.session.userName = user.name;

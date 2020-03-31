@@ -12,7 +12,6 @@ router.get('/confirm/:str', async (req, res) => {
       { loginVerified: true },
       { new: true }
     );
-    console.log(user)
     if (!user) {
       res.render('user/nonConfirmed');
     } else {
